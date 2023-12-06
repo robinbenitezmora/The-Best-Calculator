@@ -152,4 +152,44 @@ public class ScientificCalculator {
  public static double inversePercent(double a) {
   return a * 100;
  }
+
+ public static double inversePercentOf(double a, double b) {
+  return a * b / 100;
+ }
+
+ public static double percentOf(double a, double b) {
+  return a * 100 / b;
+ }
+
+ public static double inversePercentOfTotal(double a, double b) {
+  return a * 100 / b;
+ }
+
+ public static double percentOfTotal(double a, double b) {
+  return a * b / 100;
+ }
+
+ public static double inversePercentChange(double a, double b) {
+  return (a - b) / b * 100;
+ }
+
+ public static double percentChange(double a, double b) {
+  return (a - b) / a * 100;
+ }
+
+ public static double inversePercentError(double a, double b) {
+  return (a - b) / b * 100;
+ }
+
+ public static double percentError(double a, double b) {
+  return (a - b) / a * 100;
+ }
+
+ public static double inversePercentDifference(double a, double b) {
+  return (a - b) / (a + b) * 100;
+ }
+
+ public static double percentDifference(double a, double b) {
+  return (a - b) / (a + b) * 100;
+ }
 }
