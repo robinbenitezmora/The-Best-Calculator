@@ -136,4 +136,20 @@ public class ScientificCalculator {
  public static double radiansToDegrees(double a) {
   return Math.toDegrees(a);
  }
+
+ public static double hypotenuse(double a, double b) {
+  return Math.hypot(a, b);
+ }
+
+ public static double inverse(double a) {
+  return 1 / a;
+ }
+
+ public static double percent(double a) {
+  return a / 100;
+ }
+
+ public static double inversePercent(double a) {
+  return a * 100;
+ }
 }
