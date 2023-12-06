@@ -91,4 +91,38 @@ public class ScientificCalculator {
   return Math.log((1 + a) / (1 - a)) / 2;
  }
 
+ public static double factorial(double a) {
+  if (a < 0) {
+   throw new IllegalArgumentException("Cannot take factorial of negative number");
+  }
+  if (a == 0) {
+   return 1;
+  }
+  return a * factorial(a - 1);
+ }
+
+ public static double absoluteValue(double a) {
+  return Math.abs(a);
+ }
+
+ public static double round(double a) {
+  return Math.round(a);
+ }
+
+ public static double floor(double a) {
+  return Math.floor(a);
+ }
+
+ public static double ceiling(double a) {
+  return Math.ceil(a);
+ }
+
+ public static double max(double a, double b) {
+  return Math.max(a, b);
+ }
+
+ public static double min(double a, double b) {
+  return Math.min(a, b);
+ }
+
 }
