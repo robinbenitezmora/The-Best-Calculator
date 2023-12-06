@@ -1,8 +1,89 @@
 
 public class ScientificCalculator {
  public static void main(String[] args) {
-  System.out.println("Hello World!");
- }
+  System.out.println("Scientific Calculator");
+  System.out.println("Enter an expression to evaluate");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"clear\" to clear the screen");
+  System.out.println("Type \"history\" to view previous expressions");
+  System.out.println("Type \"variables\" to view current variables");
+  System.out.println("Type \"clear history\" to clear the history");
+  System.out.println("Type \"clear variables\" to clear the variables");
+  System.out.println("Type \"clear all\" to clear the history and variables");
+  System.out.println("Type \"clear screen\" to clear the screen");
+  System.out.println("Type \"clear everything\" to clear the screen, history, and variables");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  System.out.println("Type \"quit\" to exit");
+  System.out.println("Type \"help\" for a list of commands");
+  while (true) {
+   System.out.print("> ");
+   String input = System.console().readLine();
+   if (input.equals("quit")) {
+    break;
+   } else if (input.equals("help")) {
+    System.out.println("Scientific Calculator");
+    System.out.println("Enter an expression to evaluate");
+    System.out.println("Type \"help\" for a list of commands");
+    System.out.println("Type \"quit\" to exit");
+    System.out.println("Type \"clear\" to clear the screen");
+    System.out.println("Type \"history\" to view previous expressions");
+    System.out.println("Type \"variables\" to view current variables");
+    System.out.println("Type \"clear history\" to clear the history");
+    System.out.println("Type \"clear variables\" to clear the variables");
+    System.out.println("Type \"clear all\" to clear the history and variables");
+    System.out.println("Type \"clear screen\" to clear the screen");
+    System.out.println("Type \"clear everything\" to clear the screen, history, and variables");
+    System.out.println("Type \"quit\" to exit");
+    System.out.println("Type \"help\" for a list of commands");
+   } else if (input.equals("clear")) {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+   } else if (input.equals("history")) {
+    System.out.println("History");
+    for (int i = 0; i < history.size(); i++) {
+     System.out.println(i + ": " + history.get(i));
+    }
+   } else if (input.equals("variables")) {
+    System.out.println("Variables");
+    for (String key : variables.keySet()) {
+     System.out.println(key + ": " + variables.get(key));
+    }
+   } else if (input.equals("clear history")) {
+    history.clear();
+   } else if (input.equals("clear variables")) {
+    variables.clear();
+   } else if (input.equals("clear all")) {
+    history.clear();
+    variables.clear();
+   } else if (input.equals("clear screen")) {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+   } else if (input.equals("clear everything")) {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+    history.clear();
+    variables.clear();
+   } else {
+    try {
+     System.out.println(evaluate(input));
+    } catch (Exception e) {
+     System.out.println("Error: " + e.getMessage());
+    }
+   }
 
  public static double add(double a, double b) {
   return a + b;
