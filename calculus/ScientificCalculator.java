@@ -125,4 +125,15 @@ public class ScientificCalculator {
   return Math.min(a, b);
  }
 
+ public static double random() {
+  return Math.random();
+ }
+
+ public static double degreesToRadians(double a) {
+  return Math.toRadians(a);
+ }
+
+ public static double radiansToDegrees(double a) {
+  return Math.toDegrees(a);
+ }
 }
