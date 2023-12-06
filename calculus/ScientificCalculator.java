@@ -23,4 +23,24 @@ public class ScientificCalculator {
   return a / b;
  }
 
+ public static double power(double a, double b) {
+  return Math.pow(a, b);
+ }
+
+ public static double squareRoot(double a) {
+  return Math.sqrt(a);
+ }
+
+ public static double cubeRoot(double a) {
+  return Math.cbrt(a);
+ }
+
+ public static double log(double a) {
+  return Math.log(a);
+ }
+
+ public static double log10(double a) {
+  return Math.log10(a);
+ }
+
 }
