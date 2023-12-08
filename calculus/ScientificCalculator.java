@@ -1,322 +1,156 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-public class ScientificCalculator {
-  private static Object variables;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
-public static void main(String[] args) {
-  System.out.println("Scientific Calculator");
-  System.out.println("Enter an expression to evaluate");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"clear\" to clear the screen");
-  System.out.println("Type \"history\" to view previous expressions");
-  System.out.println("Type \"variables\" to view current variables");
-  System.out.println("Type \"clear history\" to clear the history");
-  System.out.println("Type \"clear variables\" to clear the variables");
-  System.out.println("Type \"clear all\" to clear the history and variables");
-  System.out.println("Type \"clear screen\" to clear the screen");
-  System.out.println("Type \"clear everything\" to clear the screen, history, and variables");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  System.out.println("Type \"quit\" to exit");
-  System.out.println("Type \"help\" for a list of commands");
-  while (true) {
-   System.out.print("> ");
-   String input = System.console().readLine();
-   if (input.equals("quit")) {
-    break;
-   } else if (input.equals("help")) {
-    System.out.println("Scientific Calculator");
-    System.out.println("Enter an expression to evaluate");
-    System.out.println("Type \"help\" for a list of commands");
-    System.out.println("Type \"quit\" to exit");
-    System.out.println("Type \"clear\" to clear the screen");
-    System.out.println("Type \"history\" to view previous expressions");
-    System.out.println("Type \"variables\" to view current variables");
-    System.out.println("Type \"clear history\" to clear the history");
-    System.out.println("Type \"clear variables\" to clear the variables");
-    System.out.println("Type \"clear all\" to clear the history and variables");
-    System.out.println("Type \"clear screen\" to clear the screen");
-    System.out.println("Type \"clear everything\" to clear the screen, history, and variables");
-    System.out.println("Type \"quit\" to exit");
-    System.out.println("Type \"help\" for a list of commands");
-   } else if (input.equals("clear")) {
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
-    } else if (input.equals("history")) {
-      System.out.println("Scientific Calculator");
-      System.out.println("Enter an expression to evaluate");
-      System.out.println("Type \"help\" for a list of commands");
-      System.out.println("Type \"quit\" to exit");
-      System.out.println("Type \"clear\" to clear the screen");
-      System.out.println("Type \"history\" to view previous expressions");
-      System.out.println("Type \"variables\" to view current variables");
-      System.out.println("Type \"clear history\" to clear the history");
-      System.out.println("Type \"clear variables\" to clear the variables");
-      System.out.println("Type \"clear all\" to clear the history and variables");
-      System.out.println("Type \"clear screen\" to clear the screen");
-      System.out.println("Type \"clear everything\" to clear the screen, history, and variables");
-      System.out.println("Type \"quit\" to exit");
-      System.out.println("Type \"help\" for a list of commands");
+public class ScientificCalculator extends JFrame {
+  public static String cstatus = "Disonnected";
+  public String person2 = "";
+  public static String username = "";
+  static int portnum = 0;
+  public static String IpAddress = ""; // Added variable name
+  public static ServerSocket ssc = null;
+  public static Socket sc = null;
+  public static DataInputStream in;
+  public static DataOutputStream out;
 
-      while (true) {
-        System.out.print("> ");
-        // Remove the duplicate declaration of 'input'
-        // String input = System.console().readLine();
-        List<String> history;
-        if (input.equals("quit")) {
-          break;
-        } else if (input.equals("help")) {
-          System.out.println("Scientific Calculator");
-          System.out.println("Enter an expression to evaluate");
-          System.out.println("Type \"help\" for a list of commands");
-          System.out.println("Type \"quit\" to exit");
-          System.out.println("Type \"clear\" to clear the screen");
-          System.out.println("Type \"history\" to view previous expressions");
-          System.out.println("Type \"variables\" to view current variables");
-          System.out.println("Type \"clear history\" to clear the history");
-          System.out.println("Type \"clear variables\" to clear the variables");
-          System.out.println("Type \"clear all\" to clear the history and variables");
-          System.out.println("Type \"clear screen\" to clear the screen");
-          System.out.println("Type \"clear everything\" to clear the screen, history, and variables");
-          System.out.println("Type \"quit\" to exit");
-          System.out.println("Type \"help\" for a list of commands");
-        } else if (input.equals("clear")) {
-          System.out.print("\033[H\033[2J");
-          System.out.flush();
-        } else if (input.equals("history")) {
-          System.out.println("History");
-          for (int i = 0; i < history.size(); i++) {
-            System.out.println(i + ": " + history.get(i));
-          }
-        } else if (input.equals("variables")) {
-          System.out.println("Variables");
-          for (String key : variables.keySet()) {
-            System.out.println(key + ": " + variables.get(key));
-          }
-          List<String> history = new ArrayList<>();
-        } else if (input.equals("clear history")) {
-    history.clear();
-  } else if (input.equals("clear variables")) {
-    variables.clear();
-   } else if (input.equals("clear all")) {
-    history.clear();
-    variables.clear();
-   } else if (input.equals("clear screen")) {
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
-   } else if (input.equals("clear everything")) {
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
-    history.clear();
-    variables.clear();
-   } else {
-    try {
-     System.out.println(evaluate(input));
-    } catch (Exception e) {
-     System.out.println("Error: " + e.getMessage());
-    }
-   }
-
-  public static double add(double a, double b) {
-    return a + b;
+  public ScientificCalculator() {
+    initComponents();
+    seticon()
   }
 
-  public static double subtract(double a, double b) {
-    return a - b;
-  }
+  @SuppressWarnings("unchecked")
+  // <editor-fold defaultstate="collapsed" desc="Generated Code">
+  private void initComponents() {
 
-  public static double multiply(double a, double b) {
-    return a * b;
-  }
+    JPanel jPanel1 = new javax.swing.JPanel();
+    JPanel jPanel2 = new javax.swing.JPanel();
+    JRadioButton jRadioButton1 = new javax.swing.JRadioButton();
+    JRadioButton jRadioButton2 = new javax.swing.JRadioButton();
+    JLabel jLabel3 = new javax.swing.JLabel();
+    JTextField jTextField1 = new javax.swing.JTextField();
+    JLabel jLabel4 = new javax.swing.JLabel();
+    JTextField jTextField2 = new javax.swing.JTextField();
+    JLabel jLabel5 = new javax.swing.JLabel();
+    JTextField jTextField3 = new javax.swing.JTextField();
+    JButton jButton3 = new javax.swing.JButton();
+    JButton jButton4 = new javax.swing.JButton();
+    JLabel jLabel6 = new javax.swing.JLabel();
+    JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+    JTextArea jTextArea1 = new javax.swing.JTextArea();
+    JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
+    JTextArea jTextArea2 = new javax.swing.JTextArea();
+    JButton jButton2 = new javax.swing.JButton();
+    JLabel jLabel1 = new javax.swing.JLabel();
+    JLabel jLabel2 = new javax.swing.JLabel();
+    JLabel jLabel7 = new javax.swing.JLabel();
+    JLabel jLabel8 = new javax.swing.JLabel();
 
-  public static double divide(double a, double b) {
-    if (b == 0) {
-      throw new IllegalArgumentException("Cannot divide by zero");
-    }
-    return a / b;
-  }
+    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setTitle("Scientific Calculator");
+    setMaximumSize(new java.awt.Dimension(600, 400));
+    setMinimumSize(new java.awt.Dimension(600, 400));
+    setResizable(false);
 
-  public static double power(double a, double b) {
-    return Math.pow(a, b);
-  }
+    jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+    jPanel1.setMaximumSize(new java.awt.Dimension(600, 400));
+    jPanel1.setMinimumSize(new java.awt.Dimension(600, 400));
+    jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+    jPanel1.setLayout(null);
 
-  public static double squareRoot(double a) {
-    return Math.sqrt(a);
-  }
+    jPanel2.setBackground(new java.awt.Color(200, 200, 200));
+    jPanel2.setMaximumSize(new java.awt.Dimension(300, 400));
+    jPanel2.setMinimumSize(new java.awt.Dimension(300, 400));
+    jPanel2.setPreferredSize(new java.awt.Dimension(300, 400));
 
-  public static double cubeRoot(double a) {
-    return Math.cbrt(a);
-  }
+    jRadioButton1.setText("Host");
+    jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jRadioButton1ActionPerformed(evt);
+      }
+    });
 
-  public static double log(double a) {
-    return Math.log(a);
-  }
+    jRadioButton2.setText("Client");
+    jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jRadioButton2ActionPerformed(evt);
+      }
+    });
 
-  public static double log10(double a) {
-    return Math.log10(a);
-  }
+    jLabel3.setText("IP Address");
+    jLabel3.setForeground(new java.awt.Color(30, 30, 30));
+    jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
 
-  public static double sin(double a) {
-    return Math.sin(a);
-  }
+    jTextField1.setText("localhost");
+    jTextField1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextField1ActionPerformed(evt);
+      }
+    });
 
-  public static double cos(double a) {
-    return Math.cos(a);
-  }
+    jLabel4.setText("Port Number");
+    jLabel4.setForeground(new java.awt.Color(30, 30, 30));
 
-  public static double tan(double a) {
-    return Math.tan(a);
-  }
+    jTextField2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jTextField2ActionPerformed(evt);
+      }
+    });
 
-  public static double arcsin(double a) {
-    return Math.asin(a);
-  }
+    jLabel5.setText("Username");
+    jLabel5.setForeground(new java.awt.Color(30, 30, 30));
+    jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
+    
+    jButton3.setBackground(new java.awt.Color(255, 255, 255));
+    jButton3.setText("Connect");
+    jButton3.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton3ActionPerformed(evt);
+      }
+    });
 
-  public static double arccos(double a) {
-    return Math.acos(a);
-  }
+    jButton4.setBackground(new java.awt.Color(255, 255, 255));
+    jButton4.setText("Disconnect");
+    jButton4.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton4ActionPerformed(evt);
+      }
+    });
 
-  public static double arctan(double a) {
-    return Math.atan(a);
-  }
+    jLabel6.setForeground(new java.awt.Color(30, 30, 30));
+    jLabel6.setText("None key clicked");
 
-  public static double sinh(double a) {
-    return Math.sinh(a);
-  }
-
-  public static double cosh(double a) {
-    return Math.cosh(a);
-  }
-
-  public static double tanh(double a) {
-    return Math.tanh(a);
-  }
-
-  public static double arcsinh(double a) {
-    return Math.log(a + Math.sqrt(a * a + 1));
-  }
-
-  public static double arccosh(double a) {
-    return Math.log(a + Math.sqrt(a * a - 1));
-  }
-
-  public static double arctanh(double a) {
-    return Math.log((1 + a) / (1 - a)) / 2;
-  }
-
-  public static double factorial(double a) {
-    if (a < 0) {
-      throw new IllegalArgumentException("Cannot take factorial of negative number");
-    }
-    if (a == 0) {
-      return 1;
-    }
-    return a * factorial(a - 1);
-  }
-
-  public static double absoluteValue(double a) {
-    return Math.abs(a);
-  }
-
-  public static double round(double a) {
-    return Math.round(a);
-  }
-
-  public static double floor(double a) {
-    return Math.floor(a);
-  }
-
-  public static double ceiling(double a) {
-    return Math.ceil(a);
-  }
-
-  public static double max(double a, double b) {
-    return Math.max(a, b);
-  }
-
-  public static double min(double a, double b) {
-    return Math.min(a, b);
-  }
-
-  public static double random() {
-    return Math.random();
-  }
-
-  public static double degreesToRadians(double a) {
-    return Math.toRadians(a);
-  }
-
-  public static double radiansToDegrees(double a) {
-    return Math.toDegrees(a);
-  }
-
-  public static double hypotenuse(double a, double b) {
-    return Math.hypot(a, b);
-  }
-
-  public static double inverse(double a) {
-    return 1 / a;
-  }
-
-  public static double percent(double a) {
-    return a / 100;
-  }
-
-  public static double inversePercent(double a) {
-    return a * 100;
-  }
-
-  public static double inversePercentOf(double a, double b) {
-    return a * b / 100;
-  }
-
-  public static double percentOf(double a, double b) {
-    return a * 100 / b;
-  }
-
-  public static double inversePercentOfTotal(double a, double b) {
-    return a * 100 / b;
-  }
-
-  public static double percentOfTotal(double a, double b) {
-    return a * b / 100;
-  }
-
-  public static double inversePercentChange(double a, double b) {
-    return (a - b) / b * 100;
-  }
-
-  public static double percentChange(double a, double b) {
-    return (a - b) / a * 100;
-  }
-
-  public static double inversePercentError(double a, double b) {
-    return (a - b) / b * 100;
-  }
-
-  public static double percentError(double a, double b) {
-    return (a - b) / a * 100;
-  }
-
-  public static double inversePercentDifference(double a, double b) {
-    return (a - b) / (a + b) * 100;
-  }
-
-  public static double percentDifference(double a, double b) {
-    return (a - b) / (a + b) * 100;
-  }
-}
+    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+    jPanel2.setLayout(jPanel2Layout);
+    jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel2Layout.createSequentialGroup().addGap(20, 20, 20)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jRadioButton1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE).addComponent(jRadioButton2))
+                .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jLabel4)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jLabel5)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jButton3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                    .addComponent(jButton4)))
+            .addGap(20, 20, 20))
+        .addGroup(jPanel2Layout.createSequentialGroup().addGap(20, 20, 20).addComponent(jLabel6)
+            .addContainerGap(200, Short.MAX_VALUE)));
