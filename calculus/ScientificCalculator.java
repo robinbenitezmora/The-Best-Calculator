@@ -410,46 +410,121 @@ public class ScientificCalculator extends JFrame {
               jTextArea1.append(person2 + ": " + msgg + "\n");
               jTextArea1.setEditable(false);
             }
+          } catch (SocketException ee) {
+            JFrame jf = new JFrame("Message");
+            JOptionPane.showMessageDialog(jf, "You've Ended the Chat");
           } catch (EOFException ee) {
             JFrame jf = new JFrame("Message");
             JOptionPane.showMessageDialog(jf, person2 + " Has Ended the Chat");
-            // ee.printStackTrace();
             cstatus = "Disconnected";
             statusVerifier(false);
-          } catch (SocketException se) {
-            statusVerifier(false);
-            JFrame jf = new JFrame("Error Occurred");
-            JOptionPane.showMessageDialog(jf, "You have Ended the Chat");
-            // se.printStackTrace();
-
           } catch (Exception ee) {
             JFrame jf = new JFrame("Message");
             JOptionPane.showMessageDialog(jf, ee);
             // ee.printStackTrace();
           }
         }
-
       }).start();
 
-    }
-
-    catch (SocketException se) {
+    } catch (SocketException se) {
       statusVerifier(false);
-
       JFrame jf = new JFrame("Error Occurred");
       JOptionPane.showMessageDialog(jf, se);
       // se.printStackTrace();
 
     }
 
-    catch (Exception ee) {
-      JFrame jf = new JFrame("Message");
-      JOptionPane.showMessageDialog(jf, ee);
-      // ee.printStackTrace();
+    catch (Exception e) {
+      JFrame jf = new JFrame("Error Occurred");
+      JOptionPane.showMessageDialog(jf, e);
+      // e.printStackTrace();
 
     }
 
   }
-}).start();}
+}).start();
+}
+if (jRadioButton2.isSelected()) {
+  new Thread(new Runnable()
+  {
 
-}// GEN-LAST:event_jButton3ActionPerformed
+  public void run() {
+      try {
+        if (jTextField3.getText().isEmpty()) {
+            
+            throw new Exception("Name Field can't be empty");
+        }
+        if (jTextField1.getText().isEmpty()) {
+          throw new Exception("The Port Number Can't be Empty");
+        }
+      }
+      IpAddress = jTextField1.getText();
+      portnum = Integer.parseInt(jTextField2.getText());
+      sc = new Socket(IpAddress, portnum);
+
+      cstatus = "Connected";
+      username = jTextField3.getText();
+
+      in = new DataInputStream(sc.getInputStream());
+      person2 = in.readUTF();
+      out = new DataOutputStream(sc.getOutputStream());
+      out.writeUTF(username);
+      statusVerifier(true);
+
+      String msgg;
+
+      new Thread(new Runnable() {
+        public void run() {
+          try {
+            while (true)
+
+            {
+              String msgg;
+              msgg = in.readUTF();
+              jTextArea1.setEditable(true);
+
+              jTextArea1.append(person2 + ": " + msgg + "\n");
+              jTextArea1.setEditable(false);
+            }
+          } catch (SocketException ee) {
+            JFrame jf = new JFrame("Message");
+            JOptionPane.showMessageDialog(jf, "You've Ended the Chat");
+            cstatus = "Disconnected";
+            statusVerifier(false);
+          } catch (EOFException se) {
+            statusVerifier(false);
+            JFrame jf = new JFrame("Erros has Ocurred");
+            JOptionPane.showMessageDialog(jf, person2 + " Has Ended the Chat");
+          } catch (Exception ee) {
+            JFrame jf = new JFrame("Message");
+            JOptionPane.showMessageDialog(jf, ee);
+            // ee.printStackTrace();
+          }
+        }
+      }).start();
+    }
+
+  catch(
+
+  SocketException se)
+  {
+    statusVerifier(false);
+    JFrame jf = new JFrame("Error Occurred");
+    JOptionPane.showMessageDialog(jf, se);
+    // se.printStackTrace();
+
+  }
+
+  catch(
+  Exception ee)
+  {
+    JFrame jf = new JFrame("Message");
+    JOptionPane.showMessageDialog(jf, e);
+    // e.printStackTrace();
+
+  }
+  }}).start();}}// GEN-LAST:event_jButton3ActionPerformed
+
+  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+    
+  }
