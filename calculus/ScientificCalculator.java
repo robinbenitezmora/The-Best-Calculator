@@ -526,5 +526,223 @@ if (jRadioButton2.isSelected()) {
   }}).start();}}// GEN-LAST:event_jButton3ActionPerformed
 
   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-    
+    new Thread(new Runnable() {
+      public void run() {
+        try {
+          if (cstatus == "Connected") {
+            out = new DataOutputStream(sc.getOutputStream());
+            String msg = jTextArea2.getText();
+            if (msg.isEmpty()) {
+              throw new Exception("Message Field can't be empty");
+            } else {
+              jTextArea2.setText("");
+              jTextArea1.append(username + ": " + msg + "\n");
+              out.writeUTF(msg);
+            }
+          }
+        }
+
+        catch (EOFException ee) {
+          JFrame jf = new JFrame("Message");
+          JOptionPane.showMessageDialog(jf, "Eof errorrrrrr..............");
+        } catch (Exception ee) {
+          JFrame jf = new JFrame("Message");
+          JOptionPane.showMessageDialog(jf, ee);
+          ee.printStackTrace();
+        }
+      }
+    }).start();
   }
+
+  private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    // TODO add your handling code here:
+    jRadioButton2.setSelected(false);
+    jTextField1.setEditable(false);
+  }
+
+  private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+      // TODO add your handling code here:
+      new Thread(new Runnable() {
+        public void run() {
+          try {
+            ssc.close();
+            sc.close();
+            
+            cstatus = "Disconnected";
+            statusVerifier(false);
+          } catch (EOFException ee) {
+            jFrame jf = new JFrame("Message");
+            JOptionPane.showMessageDialog(jf, "Eof errorrrrrr..............");
+          } catch (Exception ee) {
+            JFrame jf = new JFrame("Message");
+            JOptionPane.showMessageDialog(jf, ee);
+            ee.printStackTrace();
+          }
+        }
+      }).start();
+    }
+
+  if(jRadioButton2.isSelected())
+
+  {
+    new Thread(new Runnable() {
+      public void run() {
+        try {
+          sc.close();
+          cstatus = "Disconnected";
+          statusVerifier(false);
+        } catch (EOFException ee) {
+          jFrame jf = new JFrame("Message");
+          JOptionPane.showMessageDialog(jf, "Eof error ind disconnected button");
+        } catch (Exception ee) {
+          JFrame jf = new JFrame("Message");
+          JOptionPane.showMessageDialog(jf, "client Disconnected button");
+          ee.printStackTrace();
+        }
+      }
+    }).start();
+  }
+  }
+
+  private void jTextArea2PropertyChange(java.beans.PropertyChangeEvent evt) {
+    // TODO add your handling code here:
+  }
+
+  void statusVerifier(boolean status1) {
+    if (status1 == true && cstatus == "Disconnected") {
+      try {
+        if (jRadioButton1.isSelected()) {
+          jButton4.setEnabled(false);
+          jButton3.setEnabled(true);
+          jRadioButton1.setEnabled(true);
+          jRadioButton2.setEnabled(true);
+          jTextField1.setEditable(true);
+          jTextField2.setEditable(true);
+          jTextField3.setEditable(true);
+          jLabel6.setText(cstatus);
+          jLabel7.setText("Connection Status: " + cstatus);
+          jLabel6.setText("Disconnected");
+          jButton2.setEnabled(false);
+          jTextField2.setEditable(true);
+          jTextArea1.setEditable(false);
+          ssc.close();
+          sc.close();
+        }
+        if (jRadioButton2.isSelected()) {
+          jButton4.setEnabled(false);
+          jButton3.setEnabled(true);
+          jRadioButton1.setEnabled(true);
+          jRadioButton2.setEnabled(true);
+          jTextField1.setEditable(true);
+          jTextField2.setEditable(true);
+          jTextField3.setEditable(true);
+          jLabel6.setText(cstatus);
+          jLabel7.setText("Connection Status: " + cstatus);
+          jLabel6.setText("Disconnected");
+          jButton2.setEnabled(false);
+          jTextField2.setEditable(true);
+          jTextArea1.setEditable(false);
+          sc.close();
+        }
+      } catch (Exception ee) {
+        JFrame jf = new JFrame("Message");
+        JOptionPane.showMessageDialog(jf, ee);
+        ee.printStackTrace();
+      }
+    } else if (status1 == true && cstatus == "Connected") {
+      jButton2.setEnabled(true);
+      jTextArea1.setText("");
+      jTextArea2.setText("");
+      jButton4.setEnabled(true);
+      jButton3.setEnabled(false);
+      jRadioButton1.setEnabled(false);
+      jRadioButton2.setEnabled(false);
+      jTextField1.setEditable(false);
+      jTextField2.setEditable(false);
+      jTextField3.setEditable(false);
+      jLabel6.setText("Connected to: " + person2);
+      jLabel7.setText("Connection Status: " + cstatus);
+      jTextField2.setEditable(false);
+    }
+  }
+
+  void firsttimestatusverifier(boolean status2) {
+    if (status2 == false && cstatus == "Disconnected") {
+      jButton2.setEnabled(true);
+      jTextArea1.setText("");
+      jTextArea2.setText("");
+      jButton4.setEnabled(true);
+      jButton3.setEnabled(false);
+      jRadioButton1.setEnabled(false);
+      jRadioButton2.setEnabled(false);
+      jTextField1.setEditable(false);
+      jTextField2.setEditable(false);
+      jTextField3.setEditable(false);
+      jLabel6.setText("Connected to: "+person2);
+      jLabel7.setText("Connection Status: "+cstatus);
+      jTextField2.setEditable(false);
+    }
+    catch (Exception ee) {
+      // Code to handle the exception
+    }
+      JFrame jf = new JFrame("Message");
+      JOptionPane.showMessageDialog(jf, ee);
+      ee.printStackTrace();
+    }
+
+  }
+
+  void seticon() {
+    try {
+      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+        if ("Nimbus".equals(info.getName())) {
+          javax.swing.UIManager.setLookAndFeel(info.getClassName());
+          break;
+        }
+      }
+    } catch (ClassNotFoundException ex) {
+      java.util.logging.Logger.getLogger(ScientificCalculator.class.getName()).log(java.util.logging.Level.SEVERE, null,
+          ex);
+    } catch (InstantiationException ex) {
+      java.util.logging.Logger.getLogger(ScientificCalculator.class.getName()).log(java.util.logging.Level.SEVERE, null,
+          ex);
+    } catch (IllegalAccessException ex) {
+      java.util.logging.Logger.getLogger(ScientificCalculator.class.getName()).log(java.util.logging.Level.SEVERE, null,
+          ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+      java.util.logging.Logger.getLogger(ScientificCalculator.class.getName()).log(java.util.logging.Level.SEVERE, null,
+          ex);
+    }
+
+    java.awt.EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        ScientificCalculator root = new ScientificCalculator();
+        root.setVisible(true);
+        root.firsttimestatusverifier(false);
+      }
+    });
+  }
+
+  private javax.swing.JButton jButton2;
+  private javax.swing.JButton jButton3;
+  private javax.swing.JButton jButton4;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel jLabel5;
+  private javax.swing.JLabel jLabel6;
+  private javax.swing.JLabel jLabel7;
+  private javax.swing.JLabel jLabel8;
+  private javax.swing.JPanel jPanel1;
+  private javax.swing.JPanel jPanel2;
+  private javax.swing.JRadioButton jRadioButton1;
+  private javax.swing.JRadioButton jRadioButton2;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JTextArea jTextArea1;
+  private javax.swing.JTextArea jTextArea2;
+  private javax.swing.JTextField jTextField1;
+  private javax.swing.JTextField jTextField2;
+  private javax.swing.JTextField jTextField3;
+}
